@@ -1,0 +1,16 @@
+name: IsolerAsset
+description: "Isolement automatique d’un asset compromis"
+trigger_condition:
+  - score_risque: "> 0.7"
+actions:
+  - type: API_CALL
+    name: Isoler_Asset_Reseau
+    target: "https://firewall.company.local/api/isolate"
+    method: POST
+    body:
+      asset_id: "{{asset_id}}"
+      duration: 60
+  - type: NOTIFY
+    name: Notifier_SOC
+    target: "slack://soc-alerts"
+    message: "Asset {{asset_id}} isolé automatiquement (score risque {{score_risque}})"

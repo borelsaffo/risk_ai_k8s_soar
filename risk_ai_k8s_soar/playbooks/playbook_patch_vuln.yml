@@ -1,0 +1,16 @@
+name: PatchVulnCritique
+description: "Application automatique de patchs pour vulnérabilité critique"
+trigger_condition:
+  - score_risque: "> 0.9"
+actions:
+  - type: API_CALL
+    name: Déployer_Patch
+    target: "https://cmdb.company.local/api/patch"
+    method: POST
+    body:
+      asset_id: "{{asset_id}}"
+      patch_id: "{{patch_id}}"
+  - type: NOTIFY
+    name: Notifier_ADMIN
+    target: "email://admin@company.local"
+    message: "Patch critique appliqué sur {{asset_id}}"

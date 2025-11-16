@@ -1,0 +1,7 @@
+replicaCount: 2
+image:
+  repository: risk-ai-api
+  tag: latest
+service:
+  type: ClusterIP
+  port: 8000
